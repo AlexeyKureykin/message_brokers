@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Setting up RabbitMQ connection
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
 channel = connection.channel()
 channel.queue_declare(queue='message_queue')
@@ -15,7 +14,6 @@ def post_message():
     initial_message = data.get('message', '')
     message = f"From user: {user}\nMessage: {initial_message}"
     
-    # Publishing message to RabbitMQ
     channel.basic_publish(exchange='', routing_key='message_queue', body=message)
     return jsonify({'status': 'success', 'message': 'Message received'})
 
