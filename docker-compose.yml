@@ -4,12 +4,12 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "15672:15672"  # RabbitMQ Management UI
-      - "5672:5672"    # RabbitMQ Messaging Port
+      - "15672:15672"
+      - "5672:5672"
   
   flask-app:
     build: .
     ports:
-      - "5000:5000"  # Expose Flask app on port 5000
+      - "5000:5000"
     depends_on:
       - rabbitmq
